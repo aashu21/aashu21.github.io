@@ -31,7 +31,10 @@
 
 	<div id = "formDiv" class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" autocomplete="off" onsubmit="return false">
+			<div id="secretDiv">
+				<input type="password" placeholder="Enter your secret key here" id="secretKey" name="" onkeydown = "checkKey()">
+			</div>
+				<form id="calcForm" class="contact100-form validate-form" autocomplete="off" onsubmit="return false">
 				<span class="contact100-form-title">
 					 Rate Calculator!
 				</span>
@@ -128,7 +131,6 @@
 						</button>
 					</div>
 				</div>
-
 			</form>
 		</div>
 	</div>			
@@ -270,9 +272,18 @@
 
 <script>
 
+	function checkKey() {
+		// body...
+		if (document.getElementById('secretKey').value === 'password') {
+	        document.getElementById('calcForm').style.removeProperty('display');
+			document.getElementById('secretDiv').style.display = 'none';
+		}
+	}
+
 <!-- Defualt load -->
 
 	document.getElementById('resultDiv').style.display = 'none';
+	document.getElementById('calcForm').style.display = 'none';
 	function calculate() {
 /*		alert("msg");*/
         var quantity = Number(document.getElementById('quantity').value);
