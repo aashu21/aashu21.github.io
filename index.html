@@ -382,22 +382,22 @@
         function calculateLaminationCharge( length,  breadth, noOfSheet,laminationType) {
         	var laminationTypeFun=laminationType;
         	if(laminationTypeFun =="Gloss Lamination"){
-        		var laminationCharge= length*breadth*0.3/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="DripOff UV"){
-        		var laminationCharge= length*breadth*0.5/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
         		if(laminationCharge<2400){
         			return 2400;
         		}else
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Matte Lamination"){
-        		var laminationCharge= length*breadth*0.4/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Blister Coating"){
-        		var laminationCharge= length*breadth*0.58/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.63/100*(noOfSheet+50);
             	return laminationCharge;
             }
             else{
@@ -422,7 +422,7 @@
             if(laminationType!="Blister Coating"){
             	if (quantity>5000){
 	                var quotient = (quantity/1000);
-	                var pastingRate = 400+ 80*(quotient-5);
+	                var pastingRate = 400+ 90*(quotient-5);
 	                return pastingRate;
 	            }       
 	            else{
