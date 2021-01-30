@@ -358,13 +358,13 @@
             
         }
         function calculatePrintingCharge(noOfSheet) {
-            if (noOfSheet>0 && noOfSheet<=1000)
+           /* if (noOfSheet>0 && noOfSheet<=1000)
                 return 1500;
             
             else if (noOfSheet>1001 && noOfSheet<=2000)
-                return 1650;
+                return 1650;*/
             
-            else if (noOfSheet>2001 && noOfSheet<=3000)
+            if (noOfSheet<=3000)
                 return 1800;
             
             else{
@@ -420,14 +420,27 @@
         function calculatePastingCharge(quantity,laminationType) {
         	var laminationTypeFun=laminationType;
             if(laminationType!="Blister Coating"){
-            	if (quantity>5000){
+            	if(laminationType!= "DripOff UV"){
+            		if (quantity>5000){
 	                var quotient = (quantity/1000);
 	                var pastingRate = 400+ 90*(quotient-5);
 	                return pastingRate;
 	            }       
 	            else{
 	                return 400;
-	            }
+	            	}
+            	}
+            	else{
+            		if (quantity>5000){
+	                var quotient = (quantity/1000);
+	                var pastingRate = 400+ 110*(quotient-5);
+	                return pastingRate;
+	            }       
+	            else{
+	                return 400;
+	            	}
+            	}
+
             }
             else{
             	return 0;
