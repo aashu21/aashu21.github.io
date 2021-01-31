@@ -45,41 +45,40 @@
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the Length of the sheet :</span>
-					<input class="input100" type="number" id = "length" name="name" placeholder="Length">
-					<span class="focus-input100"></span>
+				<div class="wrap-input100 row">
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Length of the sheet :</span>
+						<input class="input100" type="number" id = "length" name="name" placeholder="Length">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Breadth of the sheet : </span>
+						<input class="input100" type="number" id = "breadth" name="name" placeholder="Breadth">
+						<span class="focus-input100"></span>
+					</div>
+				
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Boxes in 1 Sheet?</span>
+						<input class="input100" type="number" id = "boxInOneSheet" name="name" placeholder="Boxes">
+						<span class="focus-input100"></span>
+					</div>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the Breadth of the sheet : </span>
-					<input class="input100" type="number" id = "breadth" name="name" placeholder="Breadth">
-					<span class="focus-input100"></span>
-				</div>
+				<div class="wrap-input100 row">
+					<div class="col-md-6" data-validate="Name is required">
+						<span class="label-input100">GSM of the sheet :</span>
+						<input class="input100" type="number" id = "gsm" name="name" placeholder="GSM">
+						<span class="focus-input100"></span>
+					</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">How many boxes are there in 1 Sheet ?</span>
-					<input class="input100" type="number" id = "boxInOneSheet" name="name" placeholder="Boxes in 1 Sheet">
-					<span class="focus-input100"></span>
+					<div class="col-md-6" data-validate="Name is required">
+						<span class="label-input100">Rate of the sheet :</span>
+						<input class="input100" type="number" id = "rateSheet" name="name" placeholder="Rate of Sheet">
+						<span class="focus-input100"></span>
+					</div>
 				</div>
-
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the GSM of the sheet :</span>
-					<input class="input100" type="number" id = "gsm" name="name" placeholder="GSM">
-					<span class="focus-input100"></span>
-				</div>
-
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the rate of the sheet :</span>
-					<input class="input100" type="number" id = "rateSheet" name="name" placeholder="Rate of Sheet">
-					<span class="focus-input100"></span>
-				</div>
-
-				<!-- <div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the number of the wastage sheets :</span>
-					<input class="input100" type="number" id = "wastageSheets" name="name" placeholder="wastage Sheets">
-					<span class="focus-input100"></span>
-				</div> -->
 
 				<div class="wrap-input100 input100-select">
 					<span class="label-input100">Lamination Type</span>
@@ -95,18 +94,25 @@
 					<span class="focus-input100"></span>
 				</div>
 
+				<div class="wrap-input100 row">
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Die Rate :</span>
+						<input class="input100" type="number" id = "dieRate" name="name" placeholder="Die Rate">
+						<span class="focus-input100"></span>
+					</div>
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the Die Rate :</span>
-					<input class="input100" type="number" id = "dieRate" name="name" placeholder="Die Rate">
-					<span class="focus-input100"></span>
-				</div>
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Packing:</span>
+						<input class="input100" type="number" id = "packingCharge" name="name" placeholder="Packing">
+						<span class="focus-input100"></span>
+					</div>		
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the Packing Charges :</span>
-					<input class="input100" type="number" id = "packingCharge" name="name" placeholder="Packing">
-					<span class="focus-input100"></span>
-				</div>				
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Margin :</span>
+						<input class="input100" type="number" id = "margin" name="name" placeholder="Margin">
+						<span class="focus-input100"></span>
+					</div>	
+				</div>	
 
 				<div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
@@ -208,10 +214,18 @@
 					</div>
 				</div>
 
-				<div class="wrap-input100">
-					<span class="label-input100">Per Box Rate :</span>
-					<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
-					<span class="focus-input100"></span>
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
+						<span class="label-input100">Per Box Rate :</span>
+						<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Margin :</span>
+						<input class="input100" type="number" id = "marginToBeAdded" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
 				</div>
 
 			<div class="container-contact100-form-btn">
@@ -298,6 +312,7 @@
         var dieRate = Number(document.getElementById('dieRate').value);
         var packingCharge = Number(document.getElementById('packingCharge').value);
         var laminationType = document.getElementById('laminationType').value;
+        var margin = document.getElementById('margin').value;
 
 
         var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet));
@@ -307,7 +322,10 @@
         var pastingRate = Number(calculatePastingCharge(quantity,laminationType));
         
         var amount = Number(boardRate + printingRate + laminationRate + dieCuttingRate + pastingRate + dieRate + packingCharge);
-        var totalAmount = Number(amount + (amount*12/100));
+        var marginToBeAdded = Number(calculateMargin(margin,amount));
+        var totalAmount = Number(amount+ marginToBeAdded + ((amount+marginToBeAdded)*12/100));
+     
+        
 
        /* var newLine = "\r\n";
         var msg = "Number of Sheets : "+ noOfSheet.toFixed(2);
@@ -341,6 +359,7 @@
         document.getElementById("amount").value = amount.toFixed(2);
         document.getElementById("totalAmount").value = (totalAmount.toFixed(2));
         document.getElementById("perBoxRate").value = (totalAmount/quantity).toFixed(2);
+        document.getElementById("marginToBeAdded").value = (marginToBeAdded).toFixed(2);
 
         // now change the view
 		document.getElementById('resultDiv').style.removeProperty('display');
@@ -447,6 +466,10 @@
             }
 	            
         }
+        function calculateMargin(margin,amount){
+        	return (margin / 100) * amount;
+        }
+
      </script>
             
 
