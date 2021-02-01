@@ -39,104 +39,43 @@
 					 Rate Calculator!
 				</span>
 
-				<div class="wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Enter the Total number of Quantity :</span>
-					<input class="input100" type="number" id="quantity" name="name" placeholder="Quantity">
-					<span class="focus-input100"></span>
-				</div>
-
-				<div class="wrap-input100 row">
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Length of the sheet :</span>
-						<input class="input100" type="number" id = "length" name="name" placeholder="Length">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Breadth of the sheet : </span>
-						<input class="input100" type="number" id = "breadth" name="name" placeholder="Breadth">
-						<span class="focus-input100"></span>
-					</div>
 				
 
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Boxes in 1 Sheet?</span>
-						<input class="input100" type="number" id = "boxInOneSheet" name="name" placeholder="Boxes">
-						<span class="focus-input100"></span>
-					</div>
-				</div>
-
 				<div class="wrap-input100 row">
-					<div class="col-md-6" data-validate="Name is required">
-						<span class="label-input100">GSM of the sheet :</span>
-						<input class="input100" type="number" id = "gsm" name="name" placeholder="GSM">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="col-md-6" data-validate="Name is required">
-						<span class="label-input100">Rate of the sheet :</span>
-						<input class="input100" type="number" id = "rateSheet" name="name" placeholder="Rate of Sheet">
-						<span class="focus-input100"></span>
-					</div>
-				</div>
-
-				<div class="wrap-input100 input100-select">
-					<span class="label-input100">Lamination Type</span>
-					<div>
-						<select class="selection-2" id="laminationType" name="service">
-							<option>Gloss Lamination</option>
-							<option>Matte Lamination</option>
-							<option>DripOff UV</option>
-							<option>Blister Coating</option>
-							<option>No Lamination</option>
-						</select>
-					</div>
-					<span class="focus-input100"></span>
-				</div>
-
-				<div class="wrap-input100 row">
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Die Rate :</span>
-						<input class="input100" type="number" id = "dieRate" name="name" placeholder="Die Rate">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Packing:</span>
-						<input class="input100" type="number" id = "packingCharge" name="name" placeholder="Packing">
-						<span class="focus-input100"></span>
-					</div>		
-
-					<div class="col-md-4" data-validate="Name is required">
-						<span class="label-input100">Margin :</span>
-						<input class="input100" type="number" id = "margin" name="name" placeholder="Margin">
-						<span class="focus-input100"></span>
+					<div class="col-md-6"  data-validate="Name is required">
+						<div class="container-contact100-form-btn">
+							<div class="wrap-contact100-form-btn">
+								<div class="contact100-form-bgbtn"></div>
+								<button class="contact100-form-btn" onclick="window.location.href='file:///C:/Users/AashutoshSingh%20Tomar/Downloads/contact-form-v4/ContactFrom_v4/aashu21.github.io/cartonBox.html'">
+									
+										Carton Box
+										<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+									
+								</button>
+							</div>
+						</div>
 					</div>	
-				</div>	
+					
 
-				<div class="container-contact100-form-btn">
-					<div class="wrap-contact100-form-btn">
-						<div class="contact100-form-bgbtn"></div>
-						<button class="contact100-form-btn" onclick="calculate()">
-							<span>
-								Calulate Rate
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-						</button>
-					</div>
+				
+						<div class="col-md-6"  data-validate="Name is required">
+							<div class="container-contact100-form-btn">
+								<div class="wrap-contact100-form-btn">
+									<div class="contact100-form-bgbtn"></div>
+									<button class="contact100-form-btn" onclick="window.location.href='file:///C:/Users/AashutoshSingh%20Tomar/Downloads/contact-form-v4/ContactFrom_v4/aashu21.github.io/sweetBox.html'">
+										
+											Sweet Box
+											<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+										
+									</button>
+								</div>
+							</div>
+						</div>	
+					</div>	
 				</div>
+				
 
-				<div class="container-contact100-form-btn">
-					<div class="wrap-contact100-form-btn">
-						<div class="contact100-form-bgbtn"></div>
-						<button class="contact100-form-btn" type="reset">
-							<span>
-								Reset 
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-						</button>
-					</div>
-				</div>
+				
 			</form>
 		</div>
 	</div>			
@@ -288,7 +227,7 @@
 
 	function checkKey() {
 		// body...
-		if (document.getElementById('secretKey').value === 'password') {
+		if (document.getElementById('secretKey').value === '78963') {
 	        document.getElementById('calcForm').style.removeProperty('display');
 			document.getElementById('secretDiv').style.display = 'none';
 		}
