@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- comment added -->
+	<title>DPS Rate Calculator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+
+	<div id = "formDiv" class="container-contact100">
+		<div class="wrap-contact100">
+			<!-- <div id="secretDiv">
+				<input type="password" placeholder="Enter your secret key here" id="secretKey" name="" onkeydown = "checkKey()">
+			</div> -->
+				<form id="calcForm" class="contact100-form validate-form" autocomplete="off" onsubmit="return false">
+				<span class="contact100-form-title">
+					 Rate Calculator!
+				</span>
+
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Enter the Total number of Quantity :</span>
+					<input class="input100" type="number" id="quantity" name="name" placeholder="Quantity">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Length of the sheet :</span>
+						<input class="input100" type="number" id = "length" name="name" placeholder="Length">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Breadth of the sheet : </span>
+						<input class="input100" type="number" id = "breadth" name="name" placeholder="Breadth">
+						<span class="focus-input100"></span>
+					</div>
+				
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Boxes in 1 Sheet?</span>
+						<input class="input100" type="number" id = "boxInOneSheet" name="name" placeholder="Boxes">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6" data-validate="Name is required">
+						<span class="label-input100">GSM of the sheet :</span>
+						<input class="input100" type="number" id = "gsm" name="name" placeholder="GSM">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6" data-validate="Name is required">
+						<span class="label-input100">Rate of the sheet :</span>
+						<input class="input100" type="number" id = "rateSheet" name="name" placeholder="Rate of Sheet">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<div class="wrap-input100 input100-select">
+					<span class="label-input100">Lamination Type</span>
+					<div>
+						<select class="selection-2" id="laminationType" name="service">
+							<option>Gloss Lamination</option>
+							<option>Matte Lamination</option>
+							<option>DripOff UV</option>
+							<option>Blister Coating</option>
+							<option>No Lamination</option>
+						</select>
+					</div>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Die Rate :</span>
+						<input class="input100" type="number" id = "dieRate" name="name" placeholder="Die Rate">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Packing:</span>
+						<input class="input100" type="number" id = "packingCharge" name="name" placeholder="Packing">
+						<span class="focus-input100"></span>
+					</div>		
+
+					<div class="col-md-4" data-validate="Name is required">
+						<span class="label-input100">Margin :</span>
+						<input class="input100" type="number" id = "margin" name="name" placeholder="Margin">
+						<span class="focus-input100"></span>
+					</div>	
+				</div>	
+
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn" onclick="calculate()">
+							<span>
+								Calulate Rate
+								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+
+				
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6"  data-validate="Name is required">
+						<div class="container-contact100-form-btn">
+							<div class="wrap-contact100-form-btn">
+								<div class="contact100-form-bgbtn"></div>
+								<button class="contact100-form-btn" onclick="window.location.href='file:///C:/Users/AashutoshSingh%20Tomar/Downloads/contact-form-v4/ContactFrom_v4/aashu21.github.io/index.html'">
+									
+										Home
+										<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+									
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="container-contact100-form-btn">
+							<div class="wrap-contact100-form-btn">
+								<div class="contact100-form-bgbtn"></div>
+								<button class="contact100-form-btn" type="reset">
+									<span>
+										Reset 
+										<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>			
+
+			</form>
+		</div>
+	</div>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<div id="resultDiv" class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form" autocomplete="off" onsubmit="return false">
+				<span class="contact100-form-title">
+					 Calculated Rates!
+				</span>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
+						<span class="label-input100">No Of Sheets :</span>
+						<input class="input100" type="number" id="noOfSheet" name="name" readonly="readonly" >
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Board Rate :</span>
+						<input class="input100" type="number" id = "boardRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
+						<span class="label-input100">Printing Rate : </span>
+						<input class="input100" type="number" id = "printingRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Lamination Rate</span>
+						<input class="input100" type="number" id = "laminationRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
+						<span class="label-input100">Die Cutting Rate :</span>
+						<input class="input100" type="number" id = "dieCuttingRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Pasting Rate :</span>
+						<input class="input100" type="number" id = "pastingRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+
+				<div class="wrap-input100 row">
+
+					<div class="col-md-6">
+						<span class="label-input100">Amount without GST :</span>
+						<input class="input100" type="number" id = "amount" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Total Amount With GST :</span>
+						<input class="input100" type="number" id = "totalAmount" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
+						<span class="label-input100">Per Box Rate :</span>
+						<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="col-md-6">
+						<span class="label-input100">Margin :</span>
+						<input class="input100" type="number" id = "marginToBeAdded" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+			<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn" onclick="displayCalulator()">
+							<span>
+								Calulate Again
+								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+<script>
+
+	/*function checkKey() {
+		// body...
+		if (document.getElementById('secretKey').value === 'password') {
+	        document.getElementById('calcForm').style.removeProperty('display');
+			document.getElementById('secretDiv').style.display = 'none';
+		}
+	}*/
+
+<!-- Defualt load -->
+
+	document.getElementById('resultDiv').style.display = 'none';
+	//document.getElementById('calcForm').style.display = 'none';
+	function calculate() {
+/*		alert("msg");*/
+        var quantity = Number(document.getElementById('quantity').value);
+        var length = Number(document.getElementById('length').value);
+        var breadth = Number(document.getElementById('breadth').value);
+        var boxInOneSheet = Number(document.getElementById('boxInOneSheet').value);
+        var gsm = Number(document.getElementById('gsm').value);
+        var rateSheet = Number(document.getElementById('rateSheet').value);
+        /*var noOfSheet = document.getElementById('noOfSheet').value;*/
+        var noOfSheet = quantity/boxInOneSheet;
+        /*var wastageSheets = Number(document.getElementById('wastageSheets').value);*/
+        var dieRate = Number(document.getElementById('dieRate').value);
+        var packingCharge = Number(document.getElementById('packingCharge').value);
+        var laminationType = document.getElementById('laminationType').value;
+        alert ("La "+laminationType);
+        var margin = document.getElementById('margin').value;
+
+
+        var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet));
+        var printingRate = Number(calculatePrintingCharge(noOfSheet));
+        var laminationRate = Number(calculateLaminationCharge(length,  breadth, noOfSheet,laminationType));
+        var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
+        var pastingRate = Number(calculatePastingCharge(quantity,laminationType));
+        
+        var amount = Number(boardRate + printingRate + laminationRate + dieCuttingRate + pastingRate + dieRate + packingCharge);
+        var marginToBeAdded = Number(calculateMargin(margin,amount));
+        var totalAmount = Number(amount+ marginToBeAdded + ((amount+marginToBeAdded)*12/100));
+     
+        
+
+       /* var newLine = "\r\n";
+        var msg = "Number of Sheets : "+ noOfSheet.toFixed(2);
+        msg += newLine;
+        msg += "Board Rate: "+boardRate.toFixed(2);
+		msg += newLine;
+        msg += "Printing Rate: "+printingRate.toFixed(2);
+        msg += newLine;
+        msg += "Lamination Rate: "+laminationRate.toFixed(2);
+        msg += newLine;
+        msg += "Die Cutting Rate: "+dieCuttingRate.toFixed(2);
+        msg += newLine;
+        msg += "Pasting Rate: "+pastingRate.toFixed(2);
+        msg += newLine;
+        msg += "Amount without GST: "+ amount.toFixed(2);        
+   		msg += newLine;
+        msg += "Total Amount With 12% GST: "+ (totalAmount.toFixed(2));
+        msg += newLine;
+        msg += "----------------------------------------------";
+        msg += newLine;
+        msg += "Per Box Rate "+ (totalAmount/quantity).toFixed(2);*/
+
+        //alert(msg);
+
+        document.getElementById("noOfSheet").value = noOfSheet.toFixed(2);
+        document.getElementById("boardRate").value = boardRate.toFixed(2);
+        document.getElementById("printingRate").value = printingRate.toFixed(2);
+        document.getElementById("laminationRate").value = laminationRate.toFixed(2);
+        document.getElementById("dieCuttingRate").value = dieCuttingRate.toFixed(2);
+        document.getElementById("pastingRate").value = pastingRate.toFixed(2);
+        document.getElementById("amount").value = amount.toFixed(2);
+        document.getElementById("totalAmount").value = (totalAmount.toFixed(2));
+        document.getElementById("perBoxRate").value = (totalAmount/quantity).toFixed(2);
+        document.getElementById("marginToBeAdded").value = (marginToBeAdded).toFixed(2);
+
+        // now change the view
+		document.getElementById('resultDiv').style.removeProperty('display');
+        document.getElementById('formDiv').style.display = 'none';
+    }
+
+    function displayCalulator() {
+        document.getElementById('formDiv').style.removeProperty('display');
+    	document.getElementById('resultDiv').style.display = 'none';
+    }
+
+        function calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet) {
+            var boardRate = length*breadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
+            return (boardRate);
+            
+        }
+        function calculatePrintingCharge(noOfSheet) {
+           /* if (noOfSheet>0 && noOfSheet<=1000)
+                return 1500;
+            
+            else if (noOfSheet>1001 && noOfSheet<=2000)
+                return 1650;*/
+            
+            if (noOfSheet<=3000)
+                return 1800;
+            
+            else{
+                var quotient = noOfSheet/1000;
+                var remainder = noOfSheet%1000;
+                
+                if(remainder==0){
+                    return 1800 + 350*(quotient-3);
+                }
+                
+                else
+                return 1800 + 350*(quotient-2);
+            }
+        }
+        function calculateLaminationCharge( length,  breadth, noOfSheet,laminationType) {
+        	var laminationTypeFun=laminationType;
+        	if(laminationTypeFun =="Gloss Lamination"){
+        		alert ("laminationType "+laminationType);
+        		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
+            	return laminationCharge;
+        	}
+        	else if (laminationTypeFun =="DripOff UV"){
+        		alert ("laminationType "+laminationType);
+        		var laminationCharge= length*breadth*0.60/100*(noOfSheet+50);
+        		if(laminationCharge<2400){
+        			return 2400;
+        		}else
+            	return laminationCharge;
+        	}
+        	else if (laminationTypeFun =="Matte Lamination"){
+        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
+            	return laminationCharge;
+        	}
+        	else if (laminationTypeFun =="Blister Coating"){
+        		var laminationCharge= length*breadth*0.63/100*(noOfSheet+50);
+            	return laminationCharge;
+            }
+            else{
+            	return 0;
+            }
+        }
+            
+        
+        
+        function calculateDieCuttingCharge(noOfSheet){
+            if (noOfSheet>3000){
+                var quotient = (noOfSheet/1000);
+                var dieCuttingRate = 600+ 200*(quotient-3);
+                return dieCuttingRate;
+            }
+            else{
+                return 600;
+            }
+        }
+        function calculatePastingCharge(quantity,laminationType) {
+        	var laminationTypeFun=laminationType;
+            if(laminationType!="Blister Coating"){
+            	if(laminationType!= "DripOff UV"){
+            		if (quantity>5000){
+	                var quotient = (quantity/1000);
+	                var pastingRate = 400+ 90*(quotient-5);
+	                return pastingRate;
+	            }       
+	            else{
+	                return 400;
+	            	}
+            	}
+            	else{
+            		if (quantity>5000){
+	                var quotient = (quantity/1000);
+	                var pastingRate = 400+ 120*(quotient-5);
+	                return pastingRate;
+	            }       
+	            else{
+	                return 400;
+	            	}
+            	}
+
+            }
+            else{
+            	return 0;
+            }
+	            
+        }
+        function calculateMargin(margin,amount){
+        	return (margin / 100) * amount;
+        }
+
+     </script>
+            
+
+
+
+
+
+</body>
+</html>
