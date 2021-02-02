@@ -374,10 +374,10 @@
         var noOfSheet = calculateNoOfSheet(boxSize,quantity);
         var lengthBreadth = calculateLengthBreadth(boxSize);
         var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,quantity));
-        var printingRate = Number(calculatePrintingCharge(noOfSheet));
-        var laminationRateOuter = Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter));
+        var printingRate = Number(calculatePrintingCharge(noOfSheet,boxSize));
+        var laminationRateOuter = Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter,boxSize));
         var laminationRateInner = Number(calculateLaminationChargeInner(lengthBreadth, quantity,laminationTypeInner));
-        var dieCuttingRate = Number(calculateDieCuttingCharge(quantity));
+        var dieCuttingRate = Number(calculateDieCuttingCharge(quantity,boxSize));
         
         var amount = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + dieRate + packingCharge);
         var marginToBeAdded = Number(calculateMargin(margin,amount));
@@ -441,7 +441,7 @@
         	}
         	else{
         		var noOfSheet = quantity;
-            	return (2*noOfSheet);
+            	return (noOfSheet);
         	}
 	    }
 	    
@@ -474,48 +474,90 @@
             
             
         }
-        function calculatePrintingCharge(noOfSheet) {
+        function calculatePrintingCharge(noOfSheet,boxSize) {
            /* if (noOfSheet>0 && noOfSheet<=1000)
                 return 1500;
             
             else if (noOfSheet>1001 && noOfSheet<=2000)
                 return 1650;*/
             
-            if (noOfSheet<=3000)
+            if(boxSize!="1 Kg"){
+            	if (noOfSheet<=3000)
                 return 1800;
             
-            else{
-                var quotient = noOfSheet/1000;
-                var remainder = noOfSheet%1000;
+	            else{
+	                var quotient = noOfSheet/1000;
+	                var remainder = noOfSheet%1000;
+	                
+	                if(remainder==0){
+	                    return 1800 + 350*(quotient-3);
+	                }
+	                
+	                else
+	                return 1800 + 350*(quotient-2);
+	            }
+            }else{
+            	if (noOfSheet<=3000){
+            		return 3600;
+            	}
                 
-                if(remainder==0){
-                    return 1800 + 350*(quotient-3);
-                }
-                
-                else
-                return 1800 + 350*(quotient-2);
+            
+	            else{
+	                var quotient = noOfSheet/1000;
+	                var remainder = noOfSheet%1000;
+	                
+	                if(remainder==0){
+	                    return 1800 + 350*(quotient-3);
+	                }
+	                
+	                else
+	                return 2*(1800 + 350*(quotient-2));
+	            }
             }
         }
-        function calculateLaminationChargeOuter( lengthBreadth, noOfSheet,laminationTypeOuter) {
-        	var laminationTypeFun=laminationTypeOuter;
-        	if(laminationTypeFun =="Gloss"){
+        function calculateLaminationChargeOuter( lengthBreadth, noOfSheet,laminationTypeOuter,boxSize) {
+        	
+        	if(boxSize!="1 Kg"){
+        		if(laminationTypeOuter =="Gloss"){
         		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
             	return laminationCharge;
+	        	}
+	        	else if (laminationTypeOuter =="DripOff UV"){
+	        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
+	        		if(laminationCharge<2400){
+	        			return 2400;
+	        		}else
+	            	return laminationCharge;
+	        	}
+	        	else if (laminationTypeOuter =="Matte"){
+	        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
+	            	return laminationCharge;
+	        	}
+	            else{
+	            	return 0;
+	            }
         	}
-        	else if (laminationTypeFun =="DripOff UV"){
-        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
-        		if(laminationCharge<2400){
-        			return 2400;
-        		}else
-            	return laminationCharge;
+        	else{
+        		if(laminationTypeOuter =="Gloss"){
+        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+            	return 2*laminationCharge;
+	        	}
+	        	else if (laminationTypeOuter =="DripOff UV"){
+	        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
+	        		if(laminationCharge<2400){
+	        			return 4800;
+	        		}else
+	            	return 2*laminationCharge;
+	        	}
+	        	else if (laminationTypeOuter =="Matte"){
+	        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
+	            	return 2*laminationCharge;
+	        	}
+	            else{
+	            	return 0;
+	            }
         	}
-        	else if (laminationTypeFun =="Matte"){
-        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
-            	return laminationCharge;
-        	}
-            else{
-            	return 0;
-            }
+        	
         }
 
         function calculateLaminationChargeInner( lengthBreadth, noOfSheet,laminationTypeInner) {
@@ -535,14 +577,26 @@
             
         
         
-        function calculateDieCuttingCharge(noOfSheet){
-            if (noOfSheet>3000){
-                var quotient = (noOfSheet/1000);
+        function calculateDieCuttingCharge(quantity,boxSize){
+            if(boxSize!="1 Kg"){
+            	if (quantity>3000){
+                var quotient = (quantity/1000);
                 var dieCuttingRate = 600+ 200*(quotient-3);
                 return dieCuttingRate;
+	            }
+	            else{
+	                return 600;
+	            }
             }
             else{
-                return 600;
+            	if (quantity>3000){
+                var quotient = (quantity/1000);
+                var dieCuttingRate = 600+ 200*(quotient-3);
+                return 2*dieCuttingRate;
+	            }
+	            else{
+	                return 1200;
+	            }
             }
         }
         
