@@ -332,7 +332,6 @@
         var dieRate = Number(document.getElementById('dieRate').value);
         var packingCharge = Number(document.getElementById('packingCharge').value);
         var laminationType = document.getElementById('laminationType').value;
-        alert ("La "+laminationType);
         var margin = document.getElementById('margin').value;
 
 
@@ -422,12 +421,10 @@
         function calculateLaminationCharge( length,  breadth, noOfSheet,laminationType) {
         	var laminationTypeFun=laminationType;
         	if(laminationTypeFun =="Gloss Lamination"){
-        		alert ("laminationType "+laminationType);
         		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="DripOff UV"){
-        		alert ("laminationType "+laminationType);
         		var laminationCharge= length*breadth*0.60/100*(noOfSheet+50);
         		if(laminationCharge<2400){
         			return 2400;
