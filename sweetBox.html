@@ -498,7 +498,7 @@
         }
         function calculateLaminationChargeOuter( lengthBreadth, noOfSheet,laminationTypeOuter) {
         	var laminationTypeFun=laminationTypeOuter;
-        	if(laminationTypeFun =="Gloss Lamination"){
+        	if(laminationTypeFun =="Gloss"){
         		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
             	return laminationCharge;
         	}
@@ -509,7 +509,7 @@
         		}else
             	return laminationCharge;
         	}
-        	else if (laminationTypeFun =="Matte Lamination"){
+        	else if (laminationTypeFun =="Matte"){
         		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
             	return laminationCharge;
         	}
@@ -520,11 +520,11 @@
 
         function calculateLaminationChargeInner( lengthBreadth, noOfSheet,laminationTypeInner) {
         	var laminationTypeFun=laminationTypeInner;
-        	if(laminationTypeFun =="Perl Lamination"){
+        	if(laminationTypeFun =="Perl"){
         		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
             	return laminationCharge;
         	}
-        	else if (laminationTypeFun =="Silver Lamination"){
+        	else if (laminationTypeFun =="Silver"){
         		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
             	return laminationCharge;
         	}
