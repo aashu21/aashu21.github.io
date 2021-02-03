@@ -44,8 +44,8 @@
 					<div>
 						<select class="selection-2" id="boxType" name="service">
 							<option>Top Bottom</option>
-							<option>Pinning Type (Coming Soon)</option>
-							<option>Folding (Coming Soon)</option>
+							<option>Pinning Type</option>
+							<option>Folding</option>
 						</select>
 					</div>
 					<span class="focus-input100"></span>
@@ -125,6 +125,7 @@
 						<select class="selection-2" id="laminationTypeInner" name="service">
 							<option>Perl</option>
 							<option>Silver</option>
+							<option>Gloss</option>
 							<option>No Lamination</option>
 						</select>
 					</div>
@@ -355,59 +356,31 @@
 	//document.getElementById('calcForm').style.display = 'none';
 	function calculate() {
 		/*alert("msg");*/
-		var boxType = Number(document.getElementById('boxType').value);
+		var boxType = document.getElementById('boxType').value;
         var quantity = Number(document.getElementById('quantity').value);
         var boxSize = document.getElementById('boxSize').value;
-        //var length = Number(document.getElementById('length').value);
-        //var breadth = Number(document.getElementById('breadth').value);
-        //var boxInOneSheet = Number(document.getElementById('boxInOneSheet').value);
+
         var gsm = Number(document.getElementById('gsm').value);
         var rateSheet = Number(document.getElementById('rateSheet').value);
-        /*var noOfSheet = document.getElementById('noOfSheet').value;*/
-        /*var wastageSheets = Number(document.getElementById('wastageSheets').value);*/
+
         var dieRate = Number(document.getElementById('dieRate').value);
         var packingCharge = Number(document.getElementById('packingCharge').value);
         var laminationTypeOuter = document.getElementById('laminationTypeOuter').value;
         var laminationTypeInner = document.getElementById('laminationTypeInner').value;        
         var margin = document.getElementById('margin').value;
 
-        var noOfSheet = calculateNoOfSheet(boxSize,quantity);
-        var lengthBreadth = calculateLengthBreadth(boxSize);
-        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,quantity));
-        var printingRate = Number(calculatePrintingCharge(noOfSheet,boxSize));
-        var laminationRateOuter = Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter,boxSize));
-        var laminationRateInner = Number(calculateLaminationChargeInner(lengthBreadth, quantity,laminationTypeInner));
-        var dieCuttingRate = Number(calculateDieCuttingCharge(quantity,boxSize));
+        var noOfSheet = calculateNoOfSheet(boxSize,quantity,boxType);
+        var lengthBreadth = calculateLengthBreadth(boxSize,boxType);
+        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,quantity,lengthBreadth));
+        var printingRate = Number(calculatePrintingCharge(noOfSheet,boxSize,boxType));
+        var laminationRateOuter =Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter,boxSize,boxType));
+        var laminationRateInner =Number(calculateLaminationChargeInner(lengthBreadth, quantity,laminationTypeInner,boxSize,boxType));
+        var dieCuttingRate = Number(calculateDieCuttingCharge(quantity,boxSize,boxType));
         
         var amount = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + dieRate + packingCharge);
         var marginToBeAdded = Number(calculateMargin(margin,amount));
         var totalAmount = Number(amount+ marginToBeAdded + ((amount+marginToBeAdded)*12/100));
      
-        
-
-       /* var newLine = "\r\n";
-        var msg = "Number of Sheets : "+ noOfSheet.toFixed(2);
-        msg += newLine;
-        msg += "Board Rate: "+boardRate.toFixed(2);
-		msg += newLine;
-        msg += "Printing Rate: "+printingRate.toFixed(2);
-        msg += newLine;
-        msg += "Lamination Rate: "+laminationRate.toFixed(2);
-        msg += newLine;
-        msg += "Die Cutting Rate: "+dieCuttingRate.toFixed(2);
-        msg += newLine;
-        msg += "Pasting Rate: "+pastingRate.toFixed(2);
-        msg += newLine;
-        msg += "Amount without GST: "+ amount.toFixed(2);        
-   		msg += newLine;
-        msg += "Total Amount With 12% GST: "+ (totalAmount.toFixed(2));
-        msg += newLine;
-        msg += "----------------------------------------------";
-        msg += newLine;
-        msg += "Per Box Rate "+ (totalAmount/quantity).toFixed(2);*/
-
-        //alert(msg);
-
         document.getElementById("noOfSheet").value = noOfSheet.toFixed(2);
         document.getElementById("boardRate").value = boardRate.toFixed(2);
         document.getElementById("printingRate").value = printingRate.toFixed(2);
@@ -430,61 +403,140 @@
     }
 
     	
-	    function calculateNoOfSheet(boxSize,quantity) {
-	    	if (boxSize=="250 Gm"){
-        		var noOfSheet = quantity;
-            	return (noOfSheet);
-        	}
-        	else if (boxSize=="500 Gm"){
-        		var noOfSheet = quantity;
-            	return (noOfSheet);
-        	}
-        	else{
-        		var noOfSheet = quantity;
-            	return (noOfSheet);
-        	}
-	    }
-	    
-	     function calculateLengthBreadth(boxSize) {
-	    	if (boxSize=="250 Gm"){
+	    function calculateNoOfSheet(boxSize,quantity,boxType) {
+	    	if(boxType=="Top Bottom"){
+	    		var noOfSheet = quantity;
+	            return noOfSheet;
+	    	}
+	    	else if (boxType=="Pinning Type"){
+	    		if (boxSize=="250 Gm"){
+	        		var noOfSheet = quantity/9;
+	            	return (noOfSheet);
+	        	}
+	        	else if (boxSize=="500 Gm"){
+	        		var noOfSheet = quantity/3;
+	            	return (noOfSheet);
+	        	}
+	        	else{
+	        		var noOfSheet = quantity/2;
+	            	return (noOfSheet);
+	        	}	
+	    	}
+	    	else{
+	    		if (boxSize=="250 Gm"){
+	        		var noOfSheet = quantity/4;
+	            	return (noOfSheet);
+	        	}
+	        	else if (boxSize=="500 Gm"){
+	        		var noOfSheet = quantity/2;
+	            	return (noOfSheet);
+	        	}
+	        	else{
+	        		var noOfSheet = quantity/2;
+	            	return (noOfSheet);
+	        	}	
+	    	}
+	 	   }
+    
+	    function calculateLengthBreadth(boxSize,boxType) {
+	     	if(boxType=="Top Bottom"){
+	     		if (boxSize=="250 Gm"){
             	return (12*21);
-        	}
-        	else if (boxSize=="500 Gm"){
-            	return (13.4*25);
-        	}
-        	else{
-            	return (15.75*14);
-        	}
+	        	}
+	        	else if (boxSize=="500 Gm"){
+	            	return (13.4*25);
+	        	}
+	        	else{
+	            	return (15.75*14);
+	        	}
+	     	}
+	     	else if (boxType=="Pinning Type"){
+	     		if (boxSize=="250 Gm"){
+            	return (18*21);
+	        	}
+	        	else if (boxSize=="500 Gm"){
+	            	return (10*25);
+	        	}
+	        	else{
+	            	return (10*23);
+	        	}
+	     	}
+	     	else{
+	     		if (boxSize=="250 Gm"){
+            	return (18*23);
+	        	}
+	        	else if (boxSize=="500 Gm"){
+	            	return (15.75*20.75);
+	        	}
+	        	else{
+	            	return (18*23);
+	        	}
+	     	}
+	    	
 	    }
 
-        function calculateBoardRate(boxSize, gsm, rateSheet,quantity) {
-        	var boxSizeFun = boxSize;
-        	if (boxSizeFun=="250 Gm"){
-        		var boardRate = 12*21*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        function calculateBoardRate(boxSize, gsm, rateSheet,quantity,lengthBreadth) {
+
+        	if (boxSize=="250 Gm"){
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
             	return (boardRate);
         	}
-        	else if (boxSizeFun=="500 Gm"){
-        		var boardRate = 13.4*25*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        	else if (boxSize=="500 Gm"){
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
             	return (boardRate);
         	}
         	else{
-        		var boardRate = 15.75*14*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
             	return (2*boardRate);
         	}
             
             
         }
-        function calculatePrintingCharge(noOfSheet,boxSize) {
+        function calculatePrintingCharge(noOfSheet,boxSize,boxType) {
            /* if (noOfSheet>0 && noOfSheet<=1000)
                 return 1500;
             
             else if (noOfSheet>1001 && noOfSheet<=2000)
                 return 1650;*/
-            
-            if(boxSize!="1 Kg"){
+            if(boxType=="Top Bottom"){
+            	if(boxSize!="1 Kg"){
+	            	if (noOfSheet<=3000)
+	                return 1800;
+	            
+		            else{
+		                var quotient = noOfSheet/1000;
+		                var remainder = noOfSheet%1000;
+		                
+		                if(remainder==0){
+		                    return 1800 + 350*(quotient-3);
+		                }
+		                
+		                else
+		                return 1800 + 350*(quotient-2);
+		            }
+	            }else{
+	            	if (noOfSheet<=3000){
+	            		return 3600;
+	            	}
+	                
+	            
+		            else{
+		                var quotient = noOfSheet/1000;
+		                var remainder = noOfSheet%1000;
+		                
+		                if(remainder==0){
+		                    return 1800 + 350*(quotient-3);
+		                }
+		                
+		                else
+		                return 2*(1800 + 350*(quotient-2));
+		            }
+	            }
+            }
+            else{
             	if (noOfSheet<=3000)
-                return 1800;
-            
+	                return 1800;
+	            
 	            else{
 	                var quotient = noOfSheet/1000;
 	                var remainder = noOfSheet%1000;
@@ -496,31 +548,57 @@
 	                else
 	                return 1800 + 350*(quotient-2);
 	            }
-            }else{
-            	if (noOfSheet<=3000){
-            		return 3600;
-            	}
-                
-            
-	            else{
-	                var quotient = noOfSheet/1000;
-	                var remainder = noOfSheet%1000;
-	                
-	                if(remainder==0){
-	                    return 1800 + 350*(quotient-3);
-	                }
-	                
-	                else
-	                return 2*(1800 + 350*(quotient-2));
-	            }
             }
+            
         }
-        function calculateLaminationChargeOuter( lengthBreadth, noOfSheet,laminationTypeOuter,boxSize) {
+        function calculateLaminationChargeOuter( lengthBreadth, noOfSheet,laminationTypeOuter,boxSize,boxType) {
         	
-        	if(boxSize!="1 Kg"){
+        	if(boxType=="Top Bottom"){
+        		if(boxSize!="1 Kg"){
+	        		if(laminationTypeOuter =="Gloss"){
+	        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+	            	return laminationCharge;
+		        	}
+		        	else if (laminationTypeOuter =="DripOff UV"){
+		        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
+		        		if(laminationCharge<2400){
+		        			return 2400;
+		        		}else
+		            	return laminationCharge;
+		        	}
+		        	else if (laminationTypeOuter =="Matte"){
+		        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		            else{
+		            	return 0;
+		            }
+	        	}
+	        	else{
+	        		if(laminationTypeOuter =="Gloss"){
+	        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+	            	return 2*laminationCharge;
+		        	}
+		        	else if (laminationTypeOuter =="DripOff UV"){
+		        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
+		        		if(laminationCharge<2400){
+		        			return 4800;
+		        		}else
+		            	return 2*laminationCharge;
+		        	}
+		        	else if (laminationTypeOuter =="Matte"){
+		        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
+		            	return 2*laminationCharge;
+		        	}
+		            else{
+		            	return 0;
+		            }
+	        	}
+        	}
+        	else{
         		if(laminationTypeOuter =="Gloss"){
-        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
-            	return laminationCharge;
+	        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+	            	return laminationCharge;
 	        	}
 	        	else if (laminationTypeOuter =="DripOff UV"){
 	        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
@@ -536,49 +614,90 @@
 	            else{
 	            	return 0;
 	            }
-        	}
-        	else{
-        		if(laminationTypeOuter =="Gloss"){
-        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
-            	return 2*laminationCharge;
-	        	}
-	        	else if (laminationTypeOuter =="DripOff UV"){
-	        		var laminationCharge= lengthBreadth*0.60/100*(noOfSheet+50);
-	        		if(laminationCharge<2400){
-	        			return 4800;
-	        		}else
-	            	return 2*laminationCharge;
-	        	}
-	        	else if (laminationTypeOuter =="Matte"){
-	        		var laminationCharge= lengthBreadth*0.45/100*(noOfSheet+50);
-	            	return 2*laminationCharge;
-	        	}
-	            else{
-	            	return 0;
-	            }
-        	}
+    		}
         	
         }
 
-        function calculateLaminationChargeInner( lengthBreadth, noOfSheet,laminationTypeInner) {
+        function calculateLaminationChargeInner( lengthBreadth, noOfSheet,laminationTypeInner,boxSize,boxType) {
         	var laminationTypeFun=laminationTypeInner;
-        	if(laminationTypeFun =="Perl"){
-        		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
-            	return laminationCharge;
-        	}
-        	else if (laminationTypeFun =="Silver"){
-        		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
-            	return laminationCharge;
-        	}
-            else{
-            	return 0;
-            }
+
+        		if (boxSize=="250 Gm") {
+	        		if(laminationTypeFun =="Perl"){
+	        		var laminationCharge= 21*5.5*0.50/100*(noOfSheet+50);
+	            	return laminationCharge;
+		        	}
+		        	else if (laminationTypeFun =="Silver"){
+		        		var laminationCharge= 21*5.5*0.40/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		        	else if(laminationTypeFun =="Gloss"){
+		        		var laminationCharge= 21*5.5*0.35/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		            else{
+		            	return 0;
+		            }
+	        	}
+	        	else if( boxSize=="500 Gm"){
+	        		if(laminationTypeFun =="Perl"){
+	        		var laminationCharge= 7.5*25*0.50/100*(noOfSheet+50);
+	            	return laminationCharge;
+		        	}
+		        	else if (laminationTypeFun =="Silver"){
+		        		var laminationCharge= 7.5*25*0.40/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		        	else if(laminationTypeFun =="Gloss"){
+		        		var laminationCharge= 7.5*25*0.35/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		            else{
+		            	return 0;
+		            }
+	        	}
+	        	else{
+	        		if(laminationTypeFun =="Perl"){
+	        		var laminationCharge= 13*9*0.50/100*(noOfSheet+50);
+	            	return laminationCharge;
+		        	}
+		        	else if (laminationTypeFun =="Silver"){
+		        		var laminationCharge= 13*9*0.40/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		        	else if(laminationTypeFun =="Gloss"){
+		        		var laminationCharge= 13*9*0.35/100*(noOfSheet+50);
+		            	return laminationCharge;
+		        	}
+		            else{
+		            	return 0;
+		            }
+	        	}	
         }
-            
-        
-        
-        function calculateDieCuttingCharge(quantity,boxSize){
-            if(boxSize!="1 Kg"){
+                   
+        function calculateDieCuttingCharge(quantity,boxSize,boxType){
+            if(boxType="Top Bottom"){
+            	if(boxSize!="1 Kg"){
+	            	if (quantity>3000){
+	                var quotient = (quantity/1000);
+	                var dieCuttingRate = 600+ 200*(quotient-3);
+	                return dieCuttingRate;
+		            }
+		            else{
+		                return 600;
+		            }
+	            }
+	            else{
+	            	if (quantity>3000){
+	                var quotient = (quantity/1000);
+	                var dieCuttingRate = 600+ 200*(quotient-3);
+	                return 2*dieCuttingRate;
+		            }
+		            else{
+		                return 1200;
+		            }
+	            }
+            }
+            else{
             	if (quantity>3000){
                 var quotient = (quantity/1000);
                 var dieCuttingRate = 600+ 200*(quotient-3);
@@ -586,16 +705,6 @@
 	            }
 	            else{
 	                return 600;
-	            }
-            }
-            else{
-            	if (quantity>3000){
-                var quotient = (quantity/1000);
-                var dieCuttingRate = 600+ 200*(quotient-3);
-                return 2*dieCuttingRate;
-	            }
-	            else{
-	                return 1200;
 	            }
             }
         }
