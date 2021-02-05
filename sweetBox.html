@@ -371,7 +371,7 @@
 
         var noOfSheet = calculateNoOfSheet(boxSize,quantity,boxType);
         var lengthBreadth = calculateLengthBreadth(boxSize,boxType);
-        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,quantity,lengthBreadth));
+        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth));
         var printingRate = Number(calculatePrintingCharge(noOfSheet,boxSize,boxType));
         var laminationRateOuter =Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter,boxSize,boxType));
         var laminationRateInner =Number(calculateLaminationChargeInner(lengthBreadth, quantity,laminationTypeInner,boxSize,boxType));
@@ -475,18 +475,18 @@
 	    	
 	    }
 
-        function calculateBoardRate(boxSize, gsm, rateSheet,quantity,lengthBreadth) {
+        function calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth) {
 
         	if (boxSize=="250 Gm"){
-        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
             	return (boardRate);
         	}
         	else if (boxSize=="500 Gm"){
-        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
             	return (boardRate);
         	}
         	else{
-        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(quantity+50);
+        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
             	return (2*boardRate);
         	}
             
