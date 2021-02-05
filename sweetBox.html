@@ -371,11 +371,11 @@
 
         var noOfSheet = calculateNoOfSheet(boxSize,quantity,boxType);
         var lengthBreadth = calculateLengthBreadth(boxSize,boxType);
-        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth));
+        var boardRate = Number(calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth,boxType));
         var printingRate = Number(calculatePrintingCharge(noOfSheet,boxSize,boxType));
-        var laminationRateOuter =Number(calculateLaminationChargeOuter(lengthBreadth, quantity,laminationTypeOuter,boxSize,boxType));
-        var laminationRateInner =Number(calculateLaminationChargeInner(lengthBreadth, quantity,laminationTypeInner,boxSize,boxType));
-        var dieCuttingRate = Number(calculateDieCuttingCharge(quantity,boxSize,boxType));
+        var laminationRateOuter =Number(calculateLaminationChargeOuter(lengthBreadth, noOfSheet,laminationTypeOuter,boxSize,boxType));
+        var laminationRateInner =Number(calculateLaminationChargeInner(lengthBreadth, noOfSheet,laminationTypeInner,boxSize,boxType));
+        var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet,boxSize,boxType));
         
         var amount = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + dieRate + packingCharge);
         var marginToBeAdded = Number(calculateMargin(margin,amount));
@@ -475,8 +475,7 @@
 	    	
 	    }
 
-        function calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth) {
-
+        function calculateBoardRate(boxSize, gsm, rateSheet,noOfSheet,lengthBreadth,boxType) {
         	if (boxSize=="250 Gm"){
         		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
             	return (boardRate);
@@ -486,9 +485,16 @@
             	return (boardRate);
         	}
         	else{
-        		var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
-            	return (2*boardRate);
-        	}
+        		if(boxType=="Top Bottom"){
+        			var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
+	            	return (2*boardRate);
+	        	}
+        		else{
+        			var boardRate = lengthBreadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
+	            	return (boardRate);
+	        	}
+
+        	}	
             
             
         }
@@ -525,7 +531,7 @@
 		                var remainder = noOfSheet%1000;
 		                
 		                if(remainder==0){
-		                    return 1800 + 350*(quotient-3);
+		                    return 2*(1800 + 350*(quotient-3));
 		                }
 		                
 		                else
@@ -620,62 +626,139 @@
 
         function calculateLaminationChargeInner( lengthBreadth, noOfSheet,laminationTypeInner,boxSize,boxType) {
         	var laminationTypeFun=laminationTypeInner;
+        		if(boxType=="Top Bottom"){
+        				if (boxSize=="250 Gm") {
 
-        		if (boxSize=="250 Gm") {
-	        		if(laminationTypeFun =="Perl"){
-	        		var laminationCharge= 21*5.5*0.50/100*(noOfSheet+50);
-	            	return laminationCharge;
+			        		if(laminationTypeFun =="Perl"){
+			        		var laminationCharge= 21*5.5*0.50/100*(noOfSheet+50);
+			            	return laminationCharge;
+				        	}
+				        	else if (laminationTypeFun =="Silver"){
+				        		var laminationCharge= 21*5.5*0.40/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				        	else if(laminationTypeFun =="Gloss"){
+				        		var laminationCharge= 21*5.5*0.35/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				            else{
+				            	return 0;
+				            }
+		        		}
+		        		else if( boxSize=="500 Gm"){
+			        		if(laminationTypeFun =="Perl"){
+			        		var laminationCharge= 7.5*25*0.50/100*(noOfSheet+50);
+			            	return laminationCharge;
+				        	}
+				        	else if (laminationTypeFun =="Silver"){
+				        		var laminationCharge= 7.5*25*0.40/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				        	else if(laminationTypeFun =="Gloss"){
+				        		var laminationCharge= 7.5*25*0.35/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				            else{
+				            	return 0;
+				            }
+			        	}
+			        	else{
+		        			if(laminationTypeFun =="Perl"){
+			        		var laminationCharge= 13*9*0.50/100*(noOfSheet+50);
+			            	return 2*laminationCharge;
+				        	}
+				        	else if (laminationTypeFun =="Silver"){
+				        		var laminationCharge= 13*9*0.40/100*(noOfSheet+50);
+				            	return 2*laminationCharge;
+				        	}
+				        	else if(laminationTypeFun =="Gloss"){
+				        		var laminationCharge= 13*9*0.35/100*(noOfSheet+50);
+				            	return 2*laminationCharge;
+				        	}
+				            else{
+				            	return 0;
+				            }
+		        		}
 		        	}
-		        	else if (laminationTypeFun =="Silver"){
-		        		var laminationCharge= 21*5.5*0.40/100*(noOfSheet+50);
-		            	return laminationCharge;
+		        	else{
+		        		if (boxSize=="250 Gm") {
+			        		if(laminationTypeFun =="Perl"){
+			        		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
+			            	return laminationCharge;
+				        	}
+				        	else if (laminationTypeFun =="Silver"){
+				        		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				        	else if(laminationTypeFun =="Gloss"){
+				        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				            else{
+				            	return 0;
+				            }
+		        		}
+		        		else if( boxSize=="500 Gm"){
+			        		if(laminationTypeFun =="Perl"){
+			        		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
+			            	return laminationCharge;
+				        	}
+				        	else if (laminationTypeFun =="Silver"){
+				        		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				        	else if(laminationTypeFun =="Gloss"){
+				        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+				            	return laminationCharge;
+				        	}
+				            else{
+				            	return 0;
+				            }
+			        	}
+			        	else{
+			        		if(boxType=="Top Bottom"){
+			        			if(laminationTypeFun =="Perl"){
+				        		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
+				            	return 2*laminationCharge;
+					        	}
+					        	else if (laminationTypeFun =="Silver"){
+					        		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
+					            	return 2*laminationCharge;
+					        	}
+					        	else if(laminationTypeFun =="Gloss"){
+					        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+					            	return 2*laminationCharge;
+					        	}
+					            else{
+					            	return 0;
+					            }
+			        		}
+			        		else{
+			        			if(laminationTypeFun =="Perl"){
+				        		var laminationCharge= lengthBreadth*0.50/100*(noOfSheet+50);
+				            	return laminationCharge;
+					        	}
+					        	else if (laminationTypeFun =="Silver"){
+					        		var laminationCharge= lengthBreadth*0.40/100*(noOfSheet+50);
+					            	return laminationCharge;
+					        	}
+					        	else if(laminationTypeFun =="Gloss"){
+					        		var laminationCharge= lengthBreadth*0.35/100*(noOfSheet+50);
+					            	return laminationCharge;
+					        	}
+					            else{
+					            	return 0;
+					            }
+			        		}
+		        			
+		        		}
 		        	}
-		        	else if(laminationTypeFun =="Gloss"){
-		        		var laminationCharge= 21*5.5*0.35/100*(noOfSheet+50);
-		            	return laminationCharge;
-		        	}
-		            else{
-		            	return 0;
-		            }
-	        	}
-	        	else if( boxSize=="500 Gm"){
-	        		if(laminationTypeFun =="Perl"){
-	        		var laminationCharge= 7.5*25*0.50/100*(noOfSheet+50);
-	            	return laminationCharge;
-		        	}
-		        	else if (laminationTypeFun =="Silver"){
-		        		var laminationCharge= 7.5*25*0.40/100*(noOfSheet+50);
-		            	return laminationCharge;
-		        	}
-		        	else if(laminationTypeFun =="Gloss"){
-		        		var laminationCharge= 7.5*25*0.35/100*(noOfSheet+50);
-		            	return laminationCharge;
-		        	}
-		            else{
-		            	return 0;
-		            }
-	        	}
-	        	else{
-	        		if(laminationTypeFun =="Perl"){
-	        		var laminationCharge= 13*9*0.50/100*(noOfSheet+50);
-	            	return laminationCharge;
-		        	}
-		        	else if (laminationTypeFun =="Silver"){
-		        		var laminationCharge= 13*9*0.40/100*(noOfSheet+50);
-		            	return laminationCharge;
-		        	}
-		        	else if(laminationTypeFun =="Gloss"){
-		        		var laminationCharge= 13*9*0.35/100*(noOfSheet+50);
-		            	return laminationCharge;
-		        	}
-		            else{
-		            	return 0;
-		            }
-	        	}	
-        }
+        		}
+        	
+	        	
                    
         function calculateDieCuttingCharge(quantity,boxSize,boxType){
-            if(boxType="Top Bottom"){
+            if(boxType=="Top Bottom"){
             	if(boxSize!="1 Kg"){
 	            	if (quantity>3000){
 	                var quotient = (quantity/1000);
