@@ -484,7 +484,7 @@
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Matte"){
-        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Blister Coating"){
@@ -492,7 +492,6 @@
             	return laminationCharge;
             }
             else{
-            	alert("Hi");
             	return 0;
             }
         }
@@ -500,15 +499,15 @@
          function calculateLaminationChargeInner( length,  breadth, noOfSheet,laminationTypeInner) {
         	var laminationTypeFun=laminationTypeInner;
         	if(laminationTypeFun =="Perl"){
-	    		var laminationCharge= 21*5.5*0.50/100*(noOfSheet+50);
+	    		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
 	        	return laminationCharge;
 	        	}
 	        	else if (laminationTypeFun =="Silver"){
-	        		var laminationCharge= 21*5.5*0.40/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.40/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	        	else if(laminationTypeFun =="Gloss"){
-	        		var laminationCharge= 21*5.5*0.35/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	            else{
