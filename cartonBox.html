@@ -146,7 +146,7 @@
 						</div>
 
 					<div class="col-md-6" data-validate="Name is required">
-							<span class="label-input100">Margin :</span>
+							<span class="label-input100">Leeway :</span>
 							<input class="input100" type="number" id = "margin" name="name" placeholder="Margin">
 							<span class="focus-input100"></span>
 						</div>	
@@ -285,16 +285,22 @@
 
 				<div class="wrap-input100 row">
 					<div class="col-md-6">
-						<span class="label-input100">Per Box Rate :</span>
-						<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
+						<span class="label-input100">Per Box without GST:</span>
+						<input class="input100" type="number" id = "perBoxRatewithoutGST" name="name" readonly="readonly">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="col-md-6">
-						<span class="label-input100">Margin :</span>
+						<span class="label-input100">Leeway :</span>
 						<input class="input100" type="number" id = "marginToBeAdded" name="name" readonly="readonly">
 						<span class="focus-input100"></span>
 					</div>
+				</div>
+
+				<div>
+					<span class="label-input100">Per Box Rate:</span>
+					<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
+					<span class="focus-input100"></span>
 				</div>
 
 			<div class="container-contact100-form-btn">
@@ -392,9 +398,12 @@
         var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
         var pastingRate = Number(calculatePastingCharge(quantity,laminationTypeOuter,ratePasting));
         
-        var amount = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + pastingRate + dieRate + packingCharge);
-        var marginToBeAdded = Number(calculateMargin(margin,amount));
-        var totalAmount = Number(amount+ marginToBeAdded + ((amount+marginToBeAdded)*12/100));
+       
+        var amount_temp = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + pastingRate + dieRate + packingCharge);
+        var marginToBeAdded = Number(calculateMargin(margin,amount_temp));
+        var amount = Number (amount_temp+marginToBeAdded);
+        var amountwithboardGST= Number(amount+ marginToBeAdded + ((boardRate)*12/100));
+        var totalAmount = Number(amount+ marginToBeAdded + ((amount+ marginToBeAdded)*12/100));
      
         
 
@@ -430,8 +439,10 @@
         document.getElementById("pastingRate").value = pastingRate.toFixed(2);
         document.getElementById("amount").value = amount.toFixed(2);
         document.getElementById("totalAmount").value = (totalAmount.toFixed(2));
-        document.getElementById("perBoxRate").value = (totalAmount/quantity).toFixed(2);
+        document.getElementById("perBoxRatewithoutGST").value = (amountwithboardGST/quantity).toFixed(2);
         document.getElementById("marginToBeAdded").value = (marginToBeAdded).toFixed(2);
+        document.getElementById("perBoxRate").value = (totalAmount/quantity).toFixed(2);
+
 
         // now change the view
 		document.getElementById('resultDiv').style.removeProperty('display');
@@ -484,7 +495,7 @@
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Matte"){
-        		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.42/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Blister Coating"){
@@ -531,21 +542,21 @@
             	if(laminationType!= "DripOff UV"){
             		if (quantity>5000){
 	                var quotient = (quantity/1000);
-	                var pastingRate = 400+ ratePasting*(quotient-5);
+	                var pastingRate = 500+ ratePasting*(quotient-5);
 	                return pastingRate;
 	            }       
 	            else{
-	                return 400;
+	                return 500;
 	            	}
             	}
             	else{
             		if (quantity>5000){
 	                var quotient = (quantity/1000);
-	                var pastingRate = 400+ ratePasting*(quotient-5);
+	                var pastingRate = 500+ ratePasting*(quotient-5);
 	                return pastingRate;
 	            }       
 	            else{
-	                return 400;
+	                return 500;
 	            	}
             	}
 
@@ -560,10 +571,6 @@
         }
 
      </script>
-            
-
-
-
 
 
 </body>
