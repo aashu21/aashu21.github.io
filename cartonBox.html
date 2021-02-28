@@ -474,7 +474,7 @@
                 var remainder = noOfSheet%1000;
                 
                 if(remainder==0){
-                    return 1800 + 320*(quotient-3);
+                    return 1800 + 350*(quotient-3);
                 }
                 
                 else
@@ -484,7 +484,7 @@
         function calculateLaminationChargeOuter( length,  breadth, noOfSheet,laminationTypeOuter) {
         	var laminationTypeFun=laminationTypeOuter;
         	if(laminationTypeFun =="Gloss"){
-        		var laminationCharge= length*breadth*0.30/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="DripOff UV"){
@@ -518,7 +518,7 @@
 	            	return laminationCharge;
 	        	}
 	        	else if(laminationTypeFun =="Gloss"){
-	        		var laminationCharge= length*breadth*0.30/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.35/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	            else{
@@ -529,7 +529,7 @@
         function calculateDieCuttingCharge(noOfSheet){
             if (noOfSheet>3000){
                 var quotient = (noOfSheet/1000);
-                var dieCuttingRate = 600+ 150*(quotient-3);
+                var dieCuttingRate = 600+ 200*(quotient-3);
                 return dieCuttingRate;
             }
             else{
