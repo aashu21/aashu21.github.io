@@ -147,7 +147,7 @@
 
 					<div class="col-md-6" data-validate="Name is required">
 							<span class="label-input100">Leeway :</span>
-							<input class="input100" type="number" id = "margin" name="name" placeholder="Margin">
+							<input class="input100" type="number" id = "margin" name="name" placeholder="Leeway">
 							<span class="focus-input100"></span>
 						</div>	
 
@@ -249,10 +249,6 @@
 
 				</div>
 
-				
-				
-
-
 				<div class="wrap-input100 row">
 					<div class="col-md-6">
 						<span class="label-input100">Die Cutting Rate :</span>
@@ -284,6 +280,7 @@
 				</div>
 
 				<div class="wrap-input100 row">
+
 					<div class="col-md-6">
 						<span class="label-input100">Per Box without GST:</span>
 						<input class="input100" type="number" id = "perBoxRatewithoutGST" name="name" readonly="readonly">
@@ -291,16 +288,26 @@
 					</div>
 
 					<div class="col-md-6">
+						<span class="label-input100">Per Box with Board GST:</span>
+						<input class="input100" type="number" id = "perBoxRatewithBoardGST" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
+
+					
+				</div>
+
+				<div class="wrap-input100 row">
+					<div class="col-md-6">
 						<span class="label-input100">Leeway :</span>
 						<input class="input100" type="number" id = "marginToBeAdded" name="name" readonly="readonly">
 						<span class="focus-input100"></span>
 					</div>
-				</div>
 
-				<div>
-					<span class="label-input100">Per Box Rate:</span>
-					<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
-					<span class="focus-input100"></span>
+					<div class="col-md-6">
+						<span class="label-input100">Per Box Rate:</span>
+						<input class="input100" type="number" id = "perBoxRate" name="name" readonly="readonly">
+						<span class="focus-input100"></span>
+					</div>
 				</div>
 
 			<div class="container-contact100-form-btn">
@@ -402,8 +409,9 @@
         var amount_temp = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + pastingRate + dieRate + packingCharge);
         var marginToBeAdded = Number(calculateMargin(margin,amount_temp));
         var amount = Number (amount_temp+marginToBeAdded);
-        var amountwithboardGST= Number(amount+ marginToBeAdded + ((boardRate)*12/100));
-        var totalAmount = Number(amount+ marginToBeAdded + ((amount+ marginToBeAdded)*12/100));
+        var amountwithoutGST = Number(amount/quantity);
+        var amountwithboardGST= Number(amount + ((boardRate)*12/100));
+        var totalAmount = Number(amount + ((amount)*12/100));
      
         
 
@@ -439,7 +447,8 @@
         document.getElementById("pastingRate").value = pastingRate.toFixed(2);
         document.getElementById("amount").value = amount.toFixed(2);
         document.getElementById("totalAmount").value = (totalAmount.toFixed(2));
-        document.getElementById("perBoxRatewithoutGST").value = (amountwithboardGST/quantity).toFixed(2);
+        document.getElementById("perBoxRatewithoutGST").value = (amountwithoutGST).toFixed(2);
+        document.getElementById("perBoxRatewithBoardGST").value = (amountwithboardGST/quantity).toFixed(2);
         document.getElementById("marginToBeAdded").value = (marginToBeAdded).toFixed(2);
         document.getElementById("perBoxRate").value = (totalAmount/quantity).toFixed(2);
 
