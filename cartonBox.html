@@ -403,7 +403,7 @@
         var laminationRateOuter = Number(calculateLaminationChargeOuter(length,  breadth, noOfSheet,laminationTypeOuter));
         var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner));
         var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
-        var pastingRate = Number(calculatePastingCharge(quantity,laminationTypeOuter,ratePasting));
+        var pastingRate = Number(calculatePastingCharge(quantity,ratePasting));
         
        
         var amount_temp = Number(boardRate + printingRate + laminationRateOuter + laminationRateInner + dieCuttingRate + pastingRate + dieRate + packingCharge);
@@ -497,14 +497,14 @@
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="DripOff UV"){
-        		var laminationCharge= length*breadth*0.60/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
         		if(laminationCharge<2400){
         			return 2400;
         		}else
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Matte"){
-        		var laminationCharge= length*breadth*0.42/100*(noOfSheet+50);
+        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="Blister Coating"){
@@ -538,43 +538,32 @@
         function calculateDieCuttingCharge(noOfSheet){
             if (noOfSheet>3000){
                 var quotient = (noOfSheet/1000);
-                var dieCuttingRate = 600+ 200*(quotient-3);
+                var dieCuttingRate = 800+ 200*(quotient-3);
                 return dieCuttingRate;
             }
             else{
-                return 600;
+                return 800;
             }
         }
-        function calculatePastingCharge(quantity,laminationType,ratePasting) {
-        	var laminationTypeFun=laminationType;
-            if(laminationType!="Blister Coating"){
-            	if(laminationType!= "DripOff UV"){
-            		if (quantity>5000){
-	                var quotient = (quantity/1000);
-	                var pastingRate = 500+ ratePasting*(quotient-5);
-	                return pastingRate;
-	            }       
-	            else{
-	                return 500;
+        function calculatePastingCharge(quantity,ratePasting) {
+        	//var laminationTypeFun=laminationType;
+            //if(laminationType!="Blister Coating"){
+            	//if(laminationType!= "DripOff UV"){
+            		
+	                if(ratePasting!=0){
+		                var perThousand = (quantity/1000);
+		                var pastingRate = ratePasting*(perThousand);
+		                if (pastingRate>600){
+		                return pastingRate;
+		            }       
+		            else{
+		                return 600;
+		            	}
 	            	}
+	            	else
+	            		return 0;	
             	}
-            	else{
-            		if (quantity>5000){
-	                var quotient = (quantity/1000);
-	                var pastingRate = 500+ ratePasting*(quotient-5);
-	                return pastingRate;
-	            }       
-	            else{
-	                return 500;
-	            	}
-            	}
-
-            }
-            else{
-            	return 0;
-            }
-	            
-        }
+            	
         function calculateMargin(margin,amount){
         	return (margin / 100) * amount;
         }
