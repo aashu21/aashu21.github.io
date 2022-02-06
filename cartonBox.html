@@ -411,7 +411,7 @@
         var amount = Number (amount_temp+marginToBeAdded);
         var amountwithoutGST = Number(amount/quantity);
         var amountwithboardGST= Number(amount + ((boardRate)*12/100));
-        var totalAmount = Number(amount + ((amount)*12/100));
+        var totalAmount = Number(amount + ((amount)*18/100));
      
         
 
@@ -538,7 +538,7 @@
         function calculateDieCuttingCharge(noOfSheet){
             if (noOfSheet>3000){
                 var quotient = (noOfSheet/1000);
-                var dieCuttingRate = 800+ 200*(quotient-3);
+                var dieCuttingRate = 800+ 300*(quotient-3);
                 return dieCuttingRate;
             }
             else{
