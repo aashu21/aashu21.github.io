@@ -39,6 +39,26 @@
 					 Rate Calculator!
 				</span>
 
+				<div class="wrap-input100 row">
+				<div class="col-md-6">
+					<span class="label-input100">Printing Type</span>
+					<div>
+						<select class="selection-2" id="printingType" name="service">
+							<option>4 Color</option>
+							<option>Metallic</option>
+						</select>
+					</div>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="col-md-6" data-validate="Name is required">
+						<span class="label-input100">No. of Plates?</span>
+						<input class="input100" type="number" id = "noOfPlates" name="name" placeholder="noOfPlates">
+						<span class="focus-input100"></span>
+					</div>
+
+			</div>
+
 				<div class="wrap-input100 validate-input" data-validate="Name is required">
 					<span class="label-input100">Enter the Total number of Quantity :</span>
 					<input class="input100" type="number" id="quantity" name="name" placeholder="Quantity">
@@ -382,6 +402,9 @@
 	//document.getElementById('calcForm').style.display = 'none';
 	function calculate() {
 /*		alert("msg");*/
+
+		var printingType = document.getElementById('printingType').value;
+		var noOfPlates = Number(document.getElementById('noOfPlates').value);
         var quantity = Number(document.getElementById('quantity').value);
         var length = Number(document.getElementById('length').value);
         var breadth = Number(document.getElementById('breadth').value);
@@ -399,7 +422,7 @@
         var ratePasting = Number(document.getElementById('ratePasting').value);
 
         var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet));
-        var printingRate = Number(calculatePrintingCharge(noOfSheet));
+        var printingRate = Number(calculatePrintingCharge(noOfSheet,printingType));
         var laminationRateOuter = Number(calculateLaminationChargeOuter(length,  breadth, noOfSheet,laminationTypeOuter));
         var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner));
         var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
@@ -468,14 +491,10 @@
             return (boardRate);
             
         }
-        function calculatePrintingCharge(noOfSheet) {
-           /* if (noOfSheet>0 && noOfSheet<=1000)
-                return 1500;
-            
-            else if (noOfSheet>1001 && noOfSheet<=2000)
-                return 1650;*/
-            
-            if (noOfSheet<=3000)
+        function calculatePrintingCharge(noOfSheet,printingType) {
+           
+            if(printingType=="4 Color"){
+            	if (noOfSheet<=3000)
                 return 1800;
             
             else{
@@ -489,6 +508,15 @@
                 else
                 return 1800 + 350*(quotient-2);
             }
+
+            }
+            else{
+            	if (noOfSheet<=2000)
+                return 9500;
+            	else
+            		return 1500 + (4*noOfSheet+50);
+            }
+            
         }
         function calculateLaminationChargeOuter( length,  breadth, noOfSheet,laminationTypeOuter) {
         	var laminationTypeFun=laminationTypeOuter;
@@ -523,7 +551,7 @@
 	        	return laminationCharge;
 	        	}
 	        	else if (laminationTypeFun =="Silver"){
-	        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	        	else if(laminationTypeFun =="Gloss"){
