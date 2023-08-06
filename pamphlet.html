@@ -325,8 +325,8 @@
 					
 
 					<div class="col-md-6">
-						<span class="label-input100">Amount without GST :</span>
-						<input class="input100" type="number" id = "amount" name="name" readonly="readonly">
+						<span class="label-input100">Amount with paper GST :</span>
+						<input class="input100" type="number" id = "amountwithboardGST" name="name" readonly="readonly">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -465,14 +465,15 @@
         //var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner));
         //var creasingRate = Number(calculateCreasingRate(quantity,isCreasing));
         var noOfImpression = Number(calculateNoOfImpression(noOfSheet,printType));
-        console.log("Imp",noOfImpression);
+        
         //var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
         //var pastingRate = Number(calculatePastingCharge(quantity,ratePasting));
         
        
-        var amount_temp = Number(boardRate + printingRate + packingCharge );
+        //var amount_temp = Number(boardRate + printingRate + packingCharge );
         //var marginToBeAdded = Number(calculateMargin(margin,amount_temp));
-        var amount = Number (amount_temp);
+        //var amount = Number (amount_temp);
+        var amount = Number(boardRate + printingRate + packingCharge );
         var amountwithoutGST = Number(amount/quantity);
         var amountwithboardGST= Number(amount + ((boardRate)*12/100));
         var totalAmount = Number(amount + ((amount)*18/100));
@@ -512,7 +513,7 @@
 
         //document.getElementById("dieCuttingRate").value = dieCuttingRate.toFixed(2);
         //document.getElementById("pastingRate").value = pastingRate.toFixed(2);
-        document.getElementById("amount").value = amount.toFixed(2);
+        document.getElementById("amountwithboardGST").value = amountwithboardGST.toFixed(2);
         document.getElementById("totalAmount").value = (totalAmount.toFixed(2));
         //document.getElementById("perBoxRatewithoutGST").value = (amountwithoutGST).toFixed(2);
         //document.getElementById("perBoxRatewithBoardGST").value = (amountwithboardGST/quantity).toFixed(2);
@@ -538,7 +539,7 @@
         function calculatePrintingCharge(noOfSheet,printType) {
           if(printType=="Front Back")
           {
-          	var noOfSheet=2*noOfSheet;
+          	var noOfSheet=2*(noOfSheet+10);
           	if (noOfSheet<=3000)
                 return 1800;
             
@@ -634,16 +635,16 @@
         }*/
 
         function calculateNoOfImpression(noOfSheet,printType) {
-        	console.log("inside fun");
+        	
         	if(printType=="Front Back"){
 
-        		console.log("inside if");
-        		return 2*noOfSheet;
+        		
+        		return 2*(noOfSheet+10);
         	}
         	
 	        else{
-        		console.log("inside else");
-	        	return noOfSheet;}
+        		
+	        	return noOfSheet+10;}
 	       
         }
         
