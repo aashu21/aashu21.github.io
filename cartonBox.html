@@ -53,7 +53,7 @@
 
 				<div class="col-md-4" data-validate="Name is required">
 						<span class="label-input100">No. of Plates?</span>
-						<input class="input100" type="number" id = "noOfPlates" name="name" placeholder="noOfPlates">
+						<input class="input100" type="number" id = "noOfPlates" name="name" placeholder="noOfPlates" value="1">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -421,9 +421,9 @@
         var margin = Number(document.getElementById('margin').value);
         var ratePasting = Number(document.getElementById('ratePasting').value);
 
-        var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet));
-        var printingRate = Number(calculatePrintingCharge(noOfSheet,printingType));
-        var laminationRateOuter = Number(calculateLaminationChargeOuter(length,  breadth, noOfSheet,laminationTypeOuter));
+        var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet, noOfPlates));
+        var printingRate = Number(calculatePrintingCharge(noOfSheet,printingType,noOfPlates));
+        var laminationRateOuter = Number(calculateLaminationChargeOuter(length,  breadth, noOfSheet,laminationTypeOuter,noOfPlates));
         var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner));
         var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
         var pastingRate = Number(calculatePastingCharge(quantity,ratePasting));
@@ -486,50 +486,62 @@
     	document.getElementById('resultDiv').style.display = 'none';
     }
 
-        function calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet) {
-            var boardRate = length*breadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50);
+        function calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet, noOfPlates) {
+            var boardRate = length*breadth*gsm*0.288/3100/144*rateSheet*(noOfSheet+50*(noOfPlates));
             return (boardRate);
             
         }
-        function calculatePrintingCharge(noOfSheet,printingType) {
+        function calculatePrintingCharge(noOfSheet,printingType,noOfPlates) {
            
             if(printingType=="4 Color"){
             	if (noOfSheet<=3000)
-                return 1800;
+                return 1800*noOfPlates;
             
-            else{
+            else{ 
+            	var noOfSheet = noOfSheet/noOfPlates;
                 var quotient = noOfSheet/1000;
                 var remainder = noOfSheet%1000;
                 
                 if(remainder==0){
-                    return 1800 + 350*(quotient-3);
-                }
+                    return (1800 + 350*(quotient-3))*noOfPlates;
+                	}
                 
                 else
-                return 1800 + 350*(quotient-2);
-            }
+                return (1800 + 350*(quotient-2))*noOfPlates;
+            	}
 
             }
             else{
             	if (noOfSheet<=2000)
-                return 9500;
+                return 9500*noOfPlates;
             	else
-            		return 1500 + (4*noOfSheet+50);
+            		noOfSheet=noOfSheet/noOfPlates;
+            		return (1500 + (4*noOfSheet+50))*noOfPlates;
             }
             
         }
-        function calculateLaminationChargeOuter( length,  breadth, noOfSheet,laminationTypeOuter) {
+        function calculateLaminationChargeOuter( length,  breadth, noOfSheet,laminationTypeOuter, noOfPlates) {
         	var laminationTypeFun=laminationTypeOuter;
         	if(laminationTypeFun =="Gloss"){
         		var laminationCharge= length*breadth*0.40/100*(noOfSheet+50);
             	return laminationCharge;
         	}
         	else if (laminationTypeFun =="DripOff UV"){
-        		var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
+        		if(noOfPlates=="1"){
+        			var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
         		if(laminationCharge<2500){
         			return 2500;
         		}else
             	return laminationCharge;
+        		}
+        		else{
+        			var noOfSheet=noOfSheet/noOfPlates;
+					var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
+	        		if(laminationCharge<2500){
+	        			return 2500*noOfPlates;
+	        		}else
+	            	return laminationCharge*noOfPlates;
+        		}
         	}
         	else if (laminationTypeFun =="Matte"){
         		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
