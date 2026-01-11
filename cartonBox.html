@@ -122,6 +122,7 @@
 							<option>Gloss</option>
 							<option>Matte</option>
 							<option>DripOff UV</option>
+							<option>Full UV</option>
 							<option>No Lamination</option>
 						</select>
 					</div>
@@ -433,31 +434,10 @@
         var marginToBeAdded = Number(calculateMargin(margin,amount_temp));
         var amount = Number (amount_temp+marginToBeAdded);
         var amountwithoutGST = Number(amount/quantity);
-        var amountwithboardGST= Number(amount + ((boardRate)*12/100));
-        var totalAmount = Number(amount + ((amount)*18/100));
+        var amountwithboardGST= Number(amount + ((boardRate)*13/100));
+        var totalAmount = Number(amountwithboardGST + ((amountwithboardGST)*5/100));
      
         
-
-       /* var newLine = "\r\n";
-        var msg = "Number of Sheets : "+ noOfSheet.toFixed(2);
-        msg += newLine;
-        msg += "Board Rate: "+boardRate.toFixed(2);
-		msg += newLine;
-        msg += "Printing Rate: "+printingRate.toFixed(2);
-        msg += newLine;
-        msg += "Lamination Rate: "+laminationRate.toFixed(2);
-        msg += newLine;
-        msg += "Die Cutting Rate: "+dieCuttingRate.toFixed(2);
-        msg += newLine;
-        msg += "Pasting Rate: "+pastingRate.toFixed(2);
-        msg += newLine;
-        msg += "Amount without GST: "+ amount.toFixed(2);        
-   		msg += newLine;
-        msg += "Total Amount With 12% GST: "+ (totalAmount.toFixed(2));
-        msg += newLine;
-        msg += "----------------------------------------------";
-        msg += newLine;
-        msg += "Per Box Rate "+ (totalAmount/quantity).toFixed(2);*/
 
         //alert(msg);
 
@@ -494,8 +474,8 @@
         function calculatePrintingCharge(noOfSheet,printingType,noOfPlates) {
            
             if(printingType=="4 Color"){
-            	if (noOfSheet<=3000)
-                return 1800*noOfPlates;
+            	if ((noOfSheet)/noOfPlates<=3000)
+                return 2000*noOfPlates;
             
             else{ 
             	var noOfSheet = noOfSheet/noOfPlates;
@@ -503,20 +483,21 @@
                 var remainder = noOfSheet%1000;
                 
                 if(remainder==0){
-                    return (1800 + 350*(quotient-3))*noOfPlates;
+                    return (2000 + 400*(quotient-3))*noOfPlates;
                 	}
                 
                 else
-                return (1800 + 350*(quotient-2))*noOfPlates;
+                return (2000 + 400*(quotient-2))*noOfPlates;
             	}
 
             }
             else{
-            	if (noOfSheet<=2000)
-                return 9500*noOfPlates;
+            	if ((noOfSheet)/noOfPlates<=3000)
+                return 7500*noOfPlates;// 1500 Plate
             	else
-            		noOfSheet=noOfSheet/noOfPlates;
-            		return (1500 + (4*noOfSheet+50))*noOfPlates;
+            		//noOfSheet=noOfSheet/noOfPlates;
+            		return (1500 + (2*noOfSheet))*noOfPlates;
+            		//alert("return");
             }
             
         }
@@ -528,7 +509,7 @@
         	}
         	else if (laminationTypeFun =="DripOff UV"){
         		if(noOfPlates=="1"){
-        			var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
+        			var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
         		if(laminationCharge<2500){
         			return 2500;
         		}else
@@ -536,19 +517,19 @@
         		}
         		else{
         			var noOfSheet=noOfSheet/noOfPlates;
-					var laminationCharge= length*breadth*0.65/100*(noOfSheet+50);
-	        		if(laminationCharge<2500){
-	        			return 2500*noOfPlates;
+					var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
+	        		if(laminationCharge<2000){
+	        			return (2000*noOfPlates)+(500*noOfPlates);
 	        		}else
-	            	return laminationCharge*noOfPlates;
+	            	return laminationCharge*noOfPlates +(500*noOfPlates);
         		}
         	}
         	else if (laminationTypeFun =="Matte"){
         		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
             	return laminationCharge;
         	}
-        	else if (laminationTypeFun =="Blister Coating"){
-        		var laminationCharge= length*breadth*0.63/100*(noOfSheet+50);
+        	else if (laminationTypeFun =="Full UV"){
+        		var laminationCharge= length*breadth*0.30/100*(noOfSheet+50);
             	return laminationCharge;
             }
             else{
@@ -559,11 +540,11 @@
          function calculateLaminationChargeInner( length,  breadth, noOfSheet,laminationTypeInner) {
         	var laminationTypeFun=laminationTypeInner;
         	if(laminationTypeFun =="Perl"){
-	    		var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
+	    		var laminationCharge= length*breadth*0.25/100*(noOfSheet+50);
 	        	return laminationCharge;
 	        	}
 	        	else if (laminationTypeFun =="Silver"){
-	        		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	        	else if(laminationTypeFun =="Gloss"){
