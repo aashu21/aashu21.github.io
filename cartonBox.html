@@ -137,6 +137,7 @@
 							<option>Gloss</option>
 							<option>Perl</option>
 							<option>Silver</option>
+							<option>Spot UV</option>
 						</select>
 					</div>
 					<span class="focus-input100"></span>
@@ -425,7 +426,7 @@
         var boardRate = Number(calculateBoardRate(length,breadth, gsm, rateSheet, noOfSheet, noOfPlates));
         var printingRate = Number(calculatePrintingCharge(noOfSheet,printingType,noOfPlates));
         var laminationRateOuter = Number(calculateLaminationChargeOuter(length,  breadth, noOfSheet,laminationTypeOuter,noOfPlates));
-        var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner));
+        var laminationRateInner = Number(calculateLaminationChargeInner(length,  breadth, noOfSheet,laminationTypeInner,noOfPlates));
         var dieCuttingRate = Number(calculateDieCuttingCharge(noOfSheet));
         var pastingRate = Number(calculatePastingCharge(quantity,ratePasting));
         
@@ -537,7 +538,7 @@
             }
         }
             
-         function calculateLaminationChargeInner( length,  breadth, noOfSheet,laminationTypeInner) {
+         function calculateLaminationChargeInner( length,  breadth, noOfSheet,laminationTypeInner,noOfPlates) {
         	var laminationTypeFun=laminationTypeInner;
         	if(laminationTypeFun =="Perl"){
 	    		var laminationCharge= length*breadth*0.25/100*(noOfSheet+50);
@@ -550,6 +551,15 @@
 	        	else if(laminationTypeFun =="Gloss"){
 	        		var laminationCharge= length*breadth*0.40/100*(noOfSheet+50);
 	            	return laminationCharge;
+	        	}
+	        	else if(laminationTypeFun =="Spot UV"){
+	        		var noOfSheet = noOfSheet/noOfPlates;
+	        		var laminationCharge= 2 * noOfSheet;
+	        		if (laminationCharge<3000) {
+	        			return 3000*noOfPlates;
+
+	        		}
+	            	return (laminationCharge +500)*noOfPlates;
 	        	}
 	            else{
 	            	return 0;
