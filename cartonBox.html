@@ -476,7 +476,7 @@
            
             if(printingType=="4 Color"){
             	if ((noOfSheet)/noOfPlates<=3000)
-                return 2000*noOfPlates;
+                return 2200*noOfPlates;
             
             else{ 
             	var noOfSheet = noOfSheet/noOfPlates;
@@ -484,13 +484,13 @@
                 var remainder = noOfSheet%1000;
                 
                 if(remainder==0){
-                    return (2000 + 400*(quotient-3))*noOfPlates;
+                    return (2200 + 450*(quotient-3))*noOfPlates;
                 	}
                 
                 else
-                return (2000 + 400*(quotient-2))*noOfPlates;
+                return (2200 + 450*(quotient-2))*noOfPlates;
             	}
-
+            	
             }
             else{
             	if ((noOfSheet)/noOfPlates<=3000)
@@ -512,15 +512,15 @@
         		if(noOfPlates=="1"){
         			var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
         		if(laminationCharge<2500){
-        			return 2500;
+        			return 3000;
         		}else
-            	return laminationCharge;
+            	return laminationCharge+500;
         		}
         		else{
         			var noOfSheet=noOfSheet/noOfPlates;
 					var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
-	        		if(laminationCharge<2000){
-	        			return (2000*noOfPlates)+(500*noOfPlates);
+	        		if(laminationCharge<2500){
+	        			return (2500*noOfPlates)+(500*noOfPlates);
 	        		}else
 	            	return laminationCharge*noOfPlates +(500*noOfPlates);
         		}
@@ -541,11 +541,11 @@
          function calculateLaminationChargeInner( length,  breadth, noOfSheet,laminationTypeInner,noOfPlates) {
         	var laminationTypeFun=laminationTypeInner;
         	if(laminationTypeFun =="Perl"){
-	    		var laminationCharge= length*breadth*0.25/100*(noOfSheet+50);
+	    		var laminationCharge= length*breadth*0.55/100*(noOfSheet+50);
 	        	return laminationCharge;
 	        	}
 	        	else if (laminationTypeFun =="Silver"){
-	        		var laminationCharge= length*breadth*0.45/100*(noOfSheet+50);
+	        		var laminationCharge= length*breadth*0.50/100*(noOfSheet+50);
 	            	return laminationCharge;
 	        	}
 	        	else if(laminationTypeFun =="Gloss"){
@@ -554,9 +554,9 @@
 	        	}
 	        	else if(laminationTypeFun =="Spot UV"){
 	        		var noOfSheet = noOfSheet/noOfPlates;
-	        		var laminationCharge= 2 * noOfSheet;
-	        		if (laminationCharge<3000) {
-	        			return 3000*noOfPlates;
+	        		var laminationCharge= 2.5 * noOfSheet;
+	        		if (laminationCharge<3500) {
+	        			return (3500*noOfPlates);
 
 	        		}
 	            	return (laminationCharge +500)*noOfPlates;
@@ -567,13 +567,15 @@
         }
         
         function calculateDieCuttingCharge(noOfSheet){
-            if (noOfSheet>3000){
-                var quotient = (noOfSheet/1000);
-                var dieCuttingRate = 800+ 300*(quotient-3);
-                return dieCuttingRate;
+            // if (noOfSheet>3000){
+            //     var quotient = (noOfSheet/1000);
+            //     var dieCuttingRate = 800+ 300*(quotient-3);
+            var dieCuttingRate = 0.30 * noOfSheet;
+            if(dieCuttingRate>1000){
+            	return dieCuttingRate;
             }
             else{
-                return 800;
+                return 1000;
             }
         }
         function calculatePastingCharge(quantity,ratePasting) {
